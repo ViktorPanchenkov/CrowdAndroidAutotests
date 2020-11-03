@@ -119,6 +119,13 @@ public class CommunityPage extends BasePage {
     AndroidElement Public_Privet_Switcher;
     @AndroidFindBy (id = "com.jelvix.crowdthinc:id/qualifiedQuestionSwitch")
     AndroidElement QualifierSwither;
+    @AndroidFindBy (id = "com.jelvix.crowdthinc:id/userSurveysLayout")
+    AndroidElement UserSurveys;
+    @AndroidFindBy (id = "com.jelvix.crowdthinc:id/communitiesLayout")
+    AndroidElement UserCommunities;
+    @AndroidFindBy (id = "com.jelvix.crowdthinc:id/blockUserTextView")
+    AndroidElement BlockUserButton;
+
 
 
 
@@ -452,6 +459,41 @@ public class CommunityPage extends BasePage {
         FlaggedTab.click();
         return this;
     }
+    public CommunityPage GotoUserSurveysTab(){
+        try {
+            WaitVisisbilityOfElement(UserSurveys);
+            UserSurveys.click();
+        } catch (TimeoutException TimeOut){
+            Assert.fail("User Surveys button is not displayed!");
+        }
+
+        return this;
+    }
+    public CommunityPage GotoUserCommunitiesTab(){
+        try {
+            WaitVisisbilityOfElement(UserCommunities);
+            UserCommunities.click();
+        } catch (TimeoutException TimeOut){
+            Assert.fail("User communities button is not displayed!");
+        }
+        return this;
+    }
+    public CommunityPage ClcikOnTheBlock_Unblock_UserButton() throws Exception {
+        try {
+            WaitVisisbilityOfElement(BlockUserButton);
+            if (BlockUserButton.getText().equals("Block User")){
+                BlockUserButton.click();
+                wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("com.jelvix.crowdthinc:id/blockTextView"))).click();
+            } else {
+               throw new Exception("The user already banned!");
+            }
+
+        } catch (TimeoutException TimeOut){
+            Assert.fail("Block User button is not displayed!");
+        }
+        return this;
+    }
+
     public boolean ClcikOnDeleteFlaggedItem(){
         try {
             WaitVisisbilityOfElement(DeleteFlaggedItemButton);
@@ -502,6 +544,16 @@ public class CommunityPage extends BasePage {
         } else {
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.widget.FrameLayout[2]/android.widget.FrameLayout/android.widget.RadioButton"))).click();
         }
+        return this;
+    }
+    public CommunityPage GotoUserScreen(){
+        try {
+            WaitVisisbilityOfElement(UserWithName);
+            UserWithName.click();
+        } catch (TimeoutException TimeOut){
+            Assert.fail("There is no any ");
+        }
+
         return this;
     }
 
@@ -666,6 +718,44 @@ public class CommunityPage extends BasePage {
             return true;
         } catch (TimeoutException Timeout){
             Assert.fail("The Question was not marked as qualifier!");
+            return false;
+        }
+    }
+    public boolean IS_User_Profile_Displayed(){
+      try {
+          wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("com.jelvix.crowdthinc:id/blockUserLayout")));
+          wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("com.jelvix.crowdthinc:id/sendMessageButton")));
+          return true;
+      } catch (TimeoutException TimeOut){
+          Assert.fail("User Profile is not display!");
+          return false;
+      }
+    }
+
+    public boolean IS_User_Surveys_Displayed(){
+        try {
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//android.widget.TextView[@text='User Surveys']")));
+            return true;
+        } catch (TimeoutException TimeOut){
+            Assert.fail("User Survey Tab is not displayed!");
+            return false;
+        }
+    }
+    public boolean IS_User_Communityes_Displayed(){
+        try {
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//android.widget.TextView[@text='User communities']")));
+            return true;
+        } catch (TimeoutException TimeOut){
+            Assert.fail("User Communities Tab is not opened!");
+            return false;
+        }
+    }
+    public boolean IS_User_Was_Blocked(){
+        try {
+            wait.until(ExpectedConditions.textToBePresentInElementLocated(By.id("com.jelvix.crowdthinc:id/blockUserTextView"),"Unblock User"));
+            return true;
+        } catch (TimeoutException TimeOut){
+            Assert.fail("User was not Blocked!");
             return false;
         }
     }

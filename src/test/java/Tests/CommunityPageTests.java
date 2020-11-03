@@ -280,6 +280,35 @@ public class CommunityPageTests extends TestBase {
         communityPage.ClcikOnEditCommunityButton().
                 ClcikOnTheOkButtonOnConfirmationPopUP();
     }
+    @Test
+    public void GotoUserScreen(){
+        GotoFollowersTab();
+        communityPage.GotoUserScreen();
+        Assert.assertTrue(communityPage.IS_User_Profile_Displayed());
+    }
+    @Test
+    public void OpenUsersSurveys(){
+        GotoUserScreen();
+        communityPage.GotoUserSurveysTab();
+        Assert.assertTrue(communityPage.IS_User_Surveys_Displayed());
+    }
+    @Test
+    public void GotoUserCommunities(){
+        GotoUserScreen();
+        communityPage.GotoUserCommunitiesTab();
+        Assert.assertTrue(communityPage.IS_User_Communityes_Displayed());
+    }
+    @Test
+    public void BlockUser() throws Exception {
+        GotoUserScreen();
+        communityPage.ClcikOnTheBlock_Unblock_UserButton();
+        Assert.assertTrue(communityPage.IS_User_Was_Blocked());
+    }
+    @Test
+    public void UnblockUser(){
+
+    }
+
 
 
 
