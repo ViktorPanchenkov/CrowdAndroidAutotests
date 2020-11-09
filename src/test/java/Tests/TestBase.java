@@ -23,6 +23,9 @@ public class TestBase {
     MySurveysPage mySurveysPage;
     NotificationPage notificationPage;
     InboxPage inboxPage;
+    UserProfilePage userProfilePage;
+    BookmarksPage bookmarksPage;
+    ProfileSettingPage profileSettingPage;
    public static WebDriverWait wait;
 
     @BeforeMethod
@@ -53,6 +56,9 @@ public class TestBase {
         mySurveysPage = new MySurveysPage(androidDriver);
         notificationPage = new NotificationPage(androidDriver);
         inboxPage = new InboxPage(androidDriver);
+        userProfilePage = new UserProfilePage(androidDriver);
+        bookmarksPage = new BookmarksPage(androidDriver);
+        profileSettingPage = new ProfileSettingPage(androidDriver);
 
     }
 

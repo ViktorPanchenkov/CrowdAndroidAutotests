@@ -188,12 +188,13 @@ public class CommunityPageTests extends TestBase {
     @Test
     public void SendMassageInGroupChat(){
         int Random = (int) (Math.random() * 10);
-        String Massege = "Sent by automated test number";
+        String Massege = "Sent by automated test ";
         communityPage.GotoFollowingTab().
-                GotoCommunityFromList(0).
+                GotoCommunityFromList(3).
                 GotoGroupChat().
                 EnterTextOfMassageInGroupChat(Massege).
                 ClcikOnSendMassageButton();
+
 
     }
     @Test
@@ -280,34 +281,7 @@ public class CommunityPageTests extends TestBase {
         communityPage.ClcikOnEditCommunityButton().
                 ClcikOnTheOkButtonOnConfirmationPopUP();
     }
-    @Test
-    public void GotoUserScreen(){
-        GotoFollowersTab();
-        communityPage.GotoUserScreen();
-        Assert.assertTrue(communityPage.IS_User_Profile_Displayed());
-    }
-    @Test
-    public void OpenUsersSurveys(){
-        GotoUserScreen();
-        communityPage.GotoUserSurveysTab();
-        Assert.assertTrue(communityPage.IS_User_Surveys_Displayed());
-    }
-    @Test
-    public void GotoUserCommunities(){
-        GotoUserScreen();
-        communityPage.GotoUserCommunitiesTab();
-        Assert.assertTrue(communityPage.IS_User_Communityes_Displayed());
-    }
-    @Test
-    public void BlockUser() throws Exception {
-        GotoUserScreen();
-        communityPage.ClcikOnTheBlock_Unblock_UserButton();
-        Assert.assertTrue(communityPage.IS_User_Was_Blocked());
-    }
-    @Test
-    public void UnblockUser(){
 
-    }
 
 
 

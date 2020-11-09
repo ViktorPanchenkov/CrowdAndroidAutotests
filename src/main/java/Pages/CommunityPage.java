@@ -119,12 +119,8 @@ public class CommunityPage extends BasePage {
     AndroidElement Public_Privet_Switcher;
     @AndroidFindBy (id = "com.jelvix.crowdthinc:id/qualifiedQuestionSwitch")
     AndroidElement QualifierSwither;
-    @AndroidFindBy (id = "com.jelvix.crowdthinc:id/userSurveysLayout")
-    AndroidElement UserSurveys;
-    @AndroidFindBy (id = "com.jelvix.crowdthinc:id/communitiesLayout")
-    AndroidElement UserCommunities;
-    @AndroidFindBy (id = "com.jelvix.crowdthinc:id/blockUserTextView")
-    AndroidElement BlockUserButton;
+
+
 
 
 
@@ -179,18 +175,8 @@ public class CommunityPage extends BasePage {
         ModeratorsTab.click();
         return this;
     }
-    public void ScrollDown(){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("com.jelvix.crowdthinc:id/titleTextView")));
-        TouchAction action = new TouchAction(androidDriver);
-        action.press(new PointOption().withCoordinates(984,2610)).waitAction().moveTo(new PointOption().withCoordinates(984,2352)).release().perform();
 
-    }
-    public void ScrollUP(){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("com.jelvix.crowdthinc:id/titleTextView")));
-        TouchAction action = new TouchAction(androidDriver);
-        action.press(new PointOption().withCoordinates(984,2352)).waitAction().moveTo(new PointOption().withCoordinates(984,2610)).release().perform();
 
-    }
     public CommunityPage Enter_Description(String Description){
         WaitVisisbilityOfElement(Description_Text_Fieled);
         Description_Text_Fieled.clear();
@@ -459,40 +445,7 @@ public class CommunityPage extends BasePage {
         FlaggedTab.click();
         return this;
     }
-    public CommunityPage GotoUserSurveysTab(){
-        try {
-            WaitVisisbilityOfElement(UserSurveys);
-            UserSurveys.click();
-        } catch (TimeoutException TimeOut){
-            Assert.fail("User Surveys button is not displayed!");
-        }
 
-        return this;
-    }
-    public CommunityPage GotoUserCommunitiesTab(){
-        try {
-            WaitVisisbilityOfElement(UserCommunities);
-            UserCommunities.click();
-        } catch (TimeoutException TimeOut){
-            Assert.fail("User communities button is not displayed!");
-        }
-        return this;
-    }
-    public CommunityPage ClcikOnTheBlock_Unblock_UserButton() throws Exception {
-        try {
-            WaitVisisbilityOfElement(BlockUserButton);
-            if (BlockUserButton.getText().equals("Block User")){
-                BlockUserButton.click();
-                wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("com.jelvix.crowdthinc:id/blockTextView"))).click();
-            } else {
-               throw new Exception("The user already banned!");
-            }
-
-        } catch (TimeoutException TimeOut){
-            Assert.fail("Block User button is not displayed!");
-        }
-        return this;
-    }
 
     public boolean ClcikOnDeleteFlaggedItem(){
         try {
@@ -651,6 +604,7 @@ public class CommunityPage extends BasePage {
             return false;
         }
     }
+
     public boolean IS_Disscusion_Created(){
         try {
             wait.until(ExpectedConditions.textToBePresentInElementLocated(By.id("com.jelvix.crowdthinc:id/descriptionTextView"),"The discussion has been successfully created"));
@@ -721,44 +675,7 @@ public class CommunityPage extends BasePage {
             return false;
         }
     }
-    public boolean IS_User_Profile_Displayed(){
-      try {
-          wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("com.jelvix.crowdthinc:id/blockUserLayout")));
-          wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("com.jelvix.crowdthinc:id/sendMessageButton")));
-          return true;
-      } catch (TimeoutException TimeOut){
-          Assert.fail("User Profile is not display!");
-          return false;
-      }
-    }
 
-    public boolean IS_User_Surveys_Displayed(){
-        try {
-            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//android.widget.TextView[@text='User Surveys']")));
-            return true;
-        } catch (TimeoutException TimeOut){
-            Assert.fail("User Survey Tab is not displayed!");
-            return false;
-        }
-    }
-    public boolean IS_User_Communityes_Displayed(){
-        try {
-            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//android.widget.TextView[@text='User communities']")));
-            return true;
-        } catch (TimeoutException TimeOut){
-            Assert.fail("User Communities Tab is not opened!");
-            return false;
-        }
-    }
-    public boolean IS_User_Was_Blocked(){
-        try {
-            wait.until(ExpectedConditions.textToBePresentInElementLocated(By.id("com.jelvix.crowdthinc:id/blockUserTextView"),"Unblock User"));
-            return true;
-        } catch (TimeoutException TimeOut){
-            Assert.fail("User was not Blocked!");
-            return false;
-        }
-    }
 
 
 
