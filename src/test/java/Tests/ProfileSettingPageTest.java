@@ -11,23 +11,41 @@ public class ProfileSettingPageTest extends TestBase{
 
     @BeforeMethod
     public void GotoCommunityPage() {
-        // String Phone = "1113333333";
-        String Phone = "1112222222";
+
+         String Phone2 = "1113333333";
+        String Phone1 = "1112222222";
+        String Phone3 ="11111111111";
         String Password = "qwerty";
-        loginPage.ClcikOnTheOkButton().
-                EnterPhone(Phone).
-                EnterPassword(Password).
+        loginPage.ClcikOnTheOkButton();
+        if(Random <= 4){
+            loginPage.EnterPhone(Phone1);
+        } else if(Random > 4){
+            loginPage.EnterPhone(Phone2);
+        }
+
+                loginPage.EnterPassword(Password).
                 ClcikOnTheLoginButton();
         basePage.OpenBurgerMenu();
         profileSettingPage.GoToProfileSettingsPage();
 
     }
 
-    @Ignore
+    @Test
     public void ChangeUserName(){
+        String UserName2 = "33"+Random+"User";
+        String UserName1 = "1"+ Random +" Soviet Army";
+        if (Random <= 4){
+            profileSettingPage.EnterUserName(UserName1);
+            Assert.assertTrue(profileSettingPage.IS_UserName_Was_Changed(UserName1));
+        } else {
+            profileSettingPage.EnterUserName(UserName2);
+            Assert.assertTrue(profileSettingPage.IS_UserName_Was_Changed(UserName2));
+        }
+        profileSettingPage.ClcikOnTheSaveButton().
+                ClcionOnTheOkButtonOnSuccsesPopUP();
 
-        String UserName = "1"+ 4 +" Soviet Army";
-      profileSettingPage.EnterUserName(UserName);
+
+
     }
     @Test
     public void ChangeZIPCode(){
@@ -74,5 +92,72 @@ public class ProfileSettingPageTest extends TestBase{
         profileSettingPage.ClcikOnTheSaveButton().
                 ClcionOnTheOkButtonOnSuccsesPopUP();
 
+    }
+    @Test
+    public void ChangeStatusOfAccountToPrivate(){
+      profileSettingPage.ChangeAccauntStatusToPrivate();
+      Assert.assertTrue(profileSettingPage.IS_Account_have_Private_Status());
+      profileSettingPage.ClcikOnTheSaveButton().
+              ClcionOnTheOkButtonOnSuccsesPopUP();
+    }
+    @Test
+    public void ChangeStatusOfAccountToPublic(){
+       profileSettingPage.ChangeAccountStatusToPublic();
+       Assert.assertTrue(profileSettingPage.IS_Account_HavePublic_Staus());
+        profileSettingPage.ClcikOnTheSaveButton().
+                ClcionOnTheOkButtonOnSuccsesPopUP();
+
+    }
+    @Test
+    public void ChangeUserEmail(){
+        String UserEmail = "TestEmail"+Random+"@gmail.com";
+        profileSettingPage.ScrollDown();
+        profileSettingPage.EnterUserEmail(UserEmail);
+        Assert.assertTrue(profileSettingPage.IS_User_Email_Was_Changed(UserEmail));
+        profileSettingPage.ClcikOnTheSaveButton().
+                ClcionOnTheOkButtonOnSuccsesPopUP();
+    }
+    @Test
+    public void ChangePassword(){
+        String OldPass= "qwerty";
+        String NewPass = "qwerty";
+     profileSettingPage.ClcikOnChangePasswordButton().
+             EnterOldPassword(OldPass).
+             EnternewPassword(NewPass).
+             EnterConfirmPassword(NewPass).
+             SavePassword();
+     Assert.assertTrue(profileSettingPage.IS_Password_Was_Changed());
+
+    }
+    @Test
+    public void OpenTrmOFUse(){
+       profileSettingPage.ScrollDown();
+       profileSettingPage.OpenTermOfUse();
+       Assert.assertTrue(profileSettingPage.IS_TermOfUse_Opened());
+    }
+    @Test
+    public void OpenPrivicyPolisy(){
+        profileSettingPage.ScrollDown();
+        profileSettingPage.OpenPrivacyPolicy();
+        Assert.assertTrue(profileSettingPage.IS_PrivacyPosisly_wasOpened());
+    }
+    @Test
+    public void SendContactUsForm(){
+        String Email = "testemail.@gmail.com";
+        String Massage = "Bla Bla Bla";
+        profileSettingPage.ScrollDown();
+        profileSettingPage.OpenContactUsForm().
+                EnterEmailInComtactAsForm(Email).
+                TypeMessageForContactUsForm(Massage).
+                ClickOnTheSendContactUSformButton();
+        Assert.assertTrue(profileSettingPage.IS_ContactUsRequestWasSent());
+        profileSettingPage.ClcionOnTheOkButtonOnSuccsesPopUP();
+    }
+    @Test
+    public void LogOut(){
+        profileSettingPage.ScrollDown();
+        profileSettingPage.ClcikonLogoutButton().
+                ClcionOnTheOkButtonOnSuccsesPopUP();
+        Assert.assertTrue(profileSettingPage.IS_LoginScreenDisplayed());
     }
 }

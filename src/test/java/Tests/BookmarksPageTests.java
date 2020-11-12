@@ -5,15 +5,23 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 public class BookmarksPageTests extends TestBase {
-
+    int Random = (int) (Math.random() *10);
     @BeforeMethod
     public void GotoCommunityPage() {
-        // String Phone = "1113333333";
-        String Phone = "1112222222";
+        String Phone2 = "1113333333";
+        String Phone1 = "1112222222";
+        String Phone3 ="11111111111";
         String Password = "qwerty";
-        loginPage.ClcikOnTheOkButton().
-                EnterPhone(Phone).
-                EnterPassword(Password).
+        loginPage.ClcikOnTheOkButton();
+        if(Random <= 4){
+            loginPage.EnterPhone(Phone1);
+        } else if(Random > 4 && Random <8){
+            loginPage.EnterPhone(Phone2);
+        } else  if (Random >8){
+            loginPage.EnterPhone(Phone3);
+        }
+
+        loginPage.EnterPassword(Password).
                 ClcikOnTheLoginButton();
         basePage.OpenBurgerMenu();
         bookmarksPage.GotoBookmarkPage();
