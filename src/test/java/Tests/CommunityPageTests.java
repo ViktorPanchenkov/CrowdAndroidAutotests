@@ -167,7 +167,7 @@ public class CommunityPageTests extends TestBase {
         String NewsTitle = "Title by Selenium";
         String NewsDescriptin = "Description by Selenium";
         communityPage.GotoMyOwnTab().
-                GotoCommunityFromList(0).
+                GotoCommunityFromList(1).
                 ClcikOnEditCommunityButton().
                 ClcikOnAddNewsButton().
                 AddImageForNews().

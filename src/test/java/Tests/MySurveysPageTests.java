@@ -85,5 +85,17 @@ public class MySurveysPageTests extends TestBase {
         }
 
     }
+    @Test
+    public void UpdateDraft(){
+        String Title = "Draft Title";
+        String Description = "New Description";
+        mySurveysPage.GoToDraftsTab().
+                GotoSurveyFromList().
+                Enter_Title(Title).
+                EnterDescription(Description).
+                ClcikOnTheSaveToDraftButton();
+        Assert.assertTrue(mySurveysPage.IS_Draft_Was_Updated());
+
+    }
 
 }

@@ -33,6 +33,12 @@ public class MySurveysPage extends BasePage {
    AndroidElement Survey;
    @AndroidFindBy (id = "com.jelvix.crowdthinc:id/deleteDraftButton")
    AndroidElement DeleteDraftButton;
+   @AndroidFindBy (id = "com.jelvix.crowdthinc:id/titleEditText")
+   AndroidElement DraftTitle;
+   @AndroidFindBy (id = "com.jelvix.crowdthinc:id/descriptionEditText")
+   AndroidElement DraftDescription;
+   @AndroidFindBy (id = "com.jelvix.crowdthinc:id/draftButton")
+   AndroidElement SaveToDraftButton;
 
     public void WaitVisabilityOfElement(AndroidElement locator) {
         wait.until(ExpectedConditions.visibilityOf(locator));
@@ -93,8 +99,24 @@ public class MySurveysPage extends BasePage {
         DeleteDraftButton.click();
         return this;
     }
+    public MySurveysPage Enter_Title(String Title) {
+        WaitVisabilityOfElement(DraftTitle);
+        DraftTitle.clear();
+        DraftTitle.sendKeys(Title);
+        return this;
 
-
+    }
+    public MySurveysPage EnterDescription(String Description){
+        WaitVisabilityOfElement(DraftDescription);
+        DraftDescription.clear();
+        DraftDescription.sendKeys(Description);
+        return this;
+    }
+    public MySurveysPage ClcikOnTheSaveToDraftButton(){
+        WaitVisabilityOfElement(SaveToDraftButton);
+        SaveToDraftButton.click();
+        return this;
+    }
 
     public boolean IS_TabSelected(AndroidElement Tab) {
 
@@ -123,6 +145,16 @@ public class MySurveysPage extends BasePage {
         } catch (TimeoutException TimeOut){
             Assert.fail("The Survey was not published!");
             return false;
+        }
+    }
+    public boolean IS_Draft_Was_Updated(){
+        try {
+            wait.until(ExpectedConditions.textToBePresentInElementLocated(By.id("com.jelvix.crowdthinc:id/descriptionTextView"),"Your survey was successfully updated!"));
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("com.jelvix.crowdthinc:id/okButton"))).click();
+            return true;
+        } catch (TimeoutException TimeOut){
+            Assert.fail("Draft was not updated!");
+            return  false;
         }
     }
 
